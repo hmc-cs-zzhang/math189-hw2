@@ -75,11 +75,11 @@ def lasso_path(X, y, reg_min=1e-8, reg_max=10, regs=10, **grad_args):
 	return tau, W
 	
 tau, W = lasso_path(X, y, reg_min=1e-15, reg_max=0.02, regs=10, lr=1e-12)
+importantFeatures = np.array(df.columns)[np.argsort(-W[:,9])[:5]+1]
+# print importantFeatures
 # plt.title("Lasso Path")
 # plt.plot(tau, W.transpose())
 
-# find most important features
-np.array(df.columns)[np.argsort(-W[:,9])[:5]+1]
 w, obj = lasso_grad(X, y, reg=1e5, lr=1e-12, eps=1e-2, max_iters=2500, batch_size=1024, verbose=True, print_freq=250)
 plt.title("Lasso Objective Convergence")
 plt.ylabel("Stochastic Objective")
